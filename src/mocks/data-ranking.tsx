@@ -1,0 +1,58 @@
+// Dữ liệu mẫu cho bảng xếp hạng
+export const leaderboardData = [
+  {
+    rank: 1,
+    name: "An Nguyen",
+    avatar: "/avatars/01.png",
+    level: 50,
+    xp: 15000,
+    streak: 120,
+    isCurrentUser: false,
+  },
+  {
+    rank: 2,
+    name: "Bao Tran",
+    avatar: "/avatars/02.png",
+    level: 48,
+    xp: 14500,
+    streak: 110,
+    isCurrentUser: false,
+  },
+  {
+    rank: 3,
+    name: "Chi Le",
+    avatar: "/avatars/03.png",
+    level: 45,
+    xp: 13800,
+    streak: 95,
+    isCurrentUser: false,
+  },
+  {
+    rank: 4,
+    name: "Dung Pham",
+    avatar: "/avatars/04.png",
+    level: 44,
+    xp: 13500,
+    streak: 80,
+    isCurrentUser: false,
+  },
+  {
+    rank: 5,
+    name: "Dung Pham",
+    avatar: "/avatars/04.png",
+    level: 44,
+    xp: 13500,
+    streak: 80,
+    isCurrentUser: false,
+  },
+  {
+    rank: 15,
+    name: "Bạn",
+    avatar: "/avatars/current_user.png",
+    level: 30,
+    xp: 9500,
+    streak: 45,
+    isCurrentUser: true,
+  },
+  // ...
+];

@@ -11,8 +11,8 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <div className="w-full flex items-center justify-center">
-        <CarouselHome />
+      <div className="w-3xl border h-60 flex items-center justify-center">
+        {/* <CarouselHome /> */}
       </div>
 
       <div>

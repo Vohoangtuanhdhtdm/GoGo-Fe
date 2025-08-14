@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 // Lưu token vào cookie
 export interface LoginData {
-  username: string;
+  email: string;
   password: string;
 }
 

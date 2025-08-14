@@ -14,8 +14,11 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PlayVideoRouteImport } from './routes/playVideo'
 import { Route as CourseDetailRouteImport } from './routes/courseDetail'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as TESTRouteImport } from './routes/TEST'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CoursesIndexRouteImport } from './routes/courses/index'
+import { Route as AuthRegisterRouteImport } from './routes/auth/register'
+import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as CoursesCourseIdIndexRouteImport } from './routes/courses/$courseId/index'
 import { Route as CoursesCourseIdLessonIdRouteImport } from './routes/courses/$courseId/$lessonId'
 
@@ -44,6 +47,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TESTRoute = TESTRouteImport.update({
+  id: '/TEST',
+  path: '/TEST',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -52,6 +60,16 @@ const IndexRoute = IndexRouteImport.update({
 const CoursesIndexRoute = CoursesIndexRouteImport.update({
   id: '/courses/',
   path: '/courses/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/auth/register',
+  path: '/auth/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoursesCourseIdIndexRoute = CoursesCourseIdIndexRouteImport.update({
@@ -67,22 +85,28 @@ const CoursesCourseIdLessonIdRoute = CoursesCourseIdLessonIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
   '/courseDetail': typeof CourseDetailRoute
   '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/courses': typeof CoursesIndexRoute
   '/courses/$courseId/$lessonId': typeof CoursesCourseIdLessonIdRoute
   '/courses/$courseId': typeof CoursesCourseIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
   '/courseDetail': typeof CourseDetailRoute
   '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/courses': typeof CoursesIndexRoute
   '/courses/$courseId/$lessonId': typeof CoursesCourseIdLessonIdRoute
   '/courses/$courseId': typeof CoursesCourseIdIndexRoute
@@ -90,11 +114,14 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
   '/courseDetail': typeof CourseDetailRoute
   '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
+  '/auth/login': typeof AuthLoginRoute
+  '/auth/register': typeof AuthRegisterRoute
   '/courses/': typeof CoursesIndexRoute
   '/courses/$courseId/$lessonId': typeof CoursesCourseIdLessonIdRoute
   '/courses/$courseId/': typeof CoursesCourseIdIndexRoute
@@ -103,33 +130,42 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/TEST'
     | '/about'
     | '/courseDetail'
     | '/playVideo'
     | '/profile'
     | '/ranking'
+    | '/auth/login'
+    | '/auth/register'
     | '/courses'
     | '/courses/$courseId/$lessonId'
     | '/courses/$courseId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/TEST'
     | '/about'
     | '/courseDetail'
     | '/playVideo'
     | '/profile'
     | '/ranking'
+    | '/auth/login'
+    | '/auth/register'
     | '/courses'
     | '/courses/$courseId/$lessonId'
     | '/courses/$courseId'
   id:
     | '__root__'
     | '/'
+    | '/TEST'
     | '/about'
     | '/courseDetail'
     | '/playVideo'
     | '/profile'
     | '/ranking'
+    | '/auth/login'
+    | '/auth/register'
     | '/courses/'
     | '/courses/$courseId/$lessonId'
     | '/courses/$courseId/'
@@ -137,11 +173,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TESTRoute: typeof TESTRoute
   AboutRoute: typeof AboutRoute
   CourseDetailRoute: typeof CourseDetailRoute
   PlayVideoRoute: typeof PlayVideoRoute
   ProfileRoute: typeof ProfileRoute
   RankingRoute: typeof RankingRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
   CoursesIndexRoute: typeof CoursesIndexRoute
   CoursesCourseIdLessonIdRoute: typeof CoursesCourseIdLessonIdRoute
   CoursesCourseIdIndexRoute: typeof CoursesCourseIdIndexRoute
@@ -184,6 +223,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/TEST': {
+      id: '/TEST'
+      path: '/TEST'
+      fullPath: '/TEST'
+      preLoaderRoute: typeof TESTRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -196,6 +242,20 @@ declare module '@tanstack/react-router' {
       path: '/courses'
       fullPath: '/courses'
       preLoaderRoute: typeof CoursesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/register': {
+      id: '/auth/register'
+      path: '/auth/register'
+      fullPath: '/auth/register'
+      preLoaderRoute: typeof AuthRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/login': {
+      id: '/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courses/$courseId/': {
@@ -217,11 +277,14 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TESTRoute: TESTRoute,
   AboutRoute: AboutRoute,
   CourseDetailRoute: CourseDetailRoute,
   PlayVideoRoute: PlayVideoRoute,
   ProfileRoute: ProfileRoute,
   RankingRoute: RankingRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
   CoursesIndexRoute: CoursesIndexRoute,
   CoursesCourseIdLessonIdRoute: CoursesCourseIdLessonIdRoute,
   CoursesCourseIdIndexRoute: CoursesCourseIdIndexRoute,

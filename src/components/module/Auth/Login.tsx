@@ -31,6 +31,7 @@ export const Login = () => {
   });
 
   const onSubmit: SubmitHandler<LoginData> = (data) => {
+    console.log("Submitting login data:", data);
     loginMutation.mutate(data);
   };
 
@@ -53,7 +54,7 @@ export const Login = () => {
               <input
                 type="email"
                 placeholder="Email"
-                {...register("username", {
+                {...register("email", {
                   required: "Email là bắt buộc",
                   pattern: {
                     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -61,12 +62,12 @@ export const Login = () => {
                   },
                 })}
                 className={`w-full px-4 py-3 rounded-xl border ${
-                  errors.username ? "border-red-500" : "border-gray-300"
+                  errors.email ? "border-red-500" : "border-gray-300"
                 } focus:outline-none focus:ring-2 focus:ring-green-400`}
               />
-              {errors.username && (
+              {errors.email && (
                 <p className="mt-1 text-sm text-red-600">
-                  {errors.username.message}
+                  {errors.email.message}
                 </p>
               )}
             </div>

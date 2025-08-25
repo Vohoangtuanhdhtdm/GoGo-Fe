@@ -4,10 +4,15 @@ type AuthUser = {
   name: string;
   email: string;
 };
+type User = {
+  id: string;
+  name: string;
+  email: string;
+};
 
 export type UserContextType = {
-  user: any;
-  setUser: any;
+  user: User | null;
+  setUser: (user: User | null) => void;
 };
 
 type UserContextProviderType = {

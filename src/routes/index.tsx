@@ -1,4 +1,3 @@
-import { CarouselHome } from "@/components/module/Home/CarouselHome";
 import { CourseFollow } from "@/components/module/Home/CourseFollow";
 import { CourseNew } from "@/components/module/Home/CourseNew";
 

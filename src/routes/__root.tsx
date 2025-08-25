@@ -19,10 +19,13 @@ import {
   Trophy,
   User,
 } from "lucide-react";
+import { UserContextProvider } from "@/context/UserContext";
+import { UserAvatar } from "@/components/module/User/UserAvatar/UserAvatar";
+import UILogin from "@/components/module/Auth/UILogin";
 
 export const Route = createRootRoute({
   component: () => (
-    <>
+    <UserContextProvider>
       <Menubar className="rounded-none border-b p-6 flex items-center">
         <div className="w-[15%]">
           <MenubarMenu>
@@ -92,12 +95,14 @@ export const Route = createRootRoute({
         </div>
         <div className=" ml-24 w-[15%] flex items-center justify-end ">
           <MenubarMenu>
+            <UILogin />
             <MenubarTrigger>
-              <img
-                className="w-10 h-10 rounded-full object-cover border"
-                src="https://i.pinimg.com/736x/76/c8/8c/76c88c7de180333ed87ec46f8f11eb3f.jpg"
-                alt=""
-              />
+              {/* <img
+              className="w-10 h-10 rounded-full object-cover border"
+              src="https://i.pinimg.com/736x/76/c8/8c/76c88c7de180333ed87ec46f8f11eb3f.jpg"
+              alt=""
+            /> */}
+              <UserAvatar />
             </MenubarTrigger>
             <MenubarContent>
               <Link to="/profile">
@@ -122,6 +127,6 @@ export const Route = createRootRoute({
       </div>
 
       <TanStackRouterDevtools />
-    </>
+    </UserContextProvider>
   ),
 });

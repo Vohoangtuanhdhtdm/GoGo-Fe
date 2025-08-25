@@ -1,13 +1,16 @@
-import type { LoginData } from "@/api/authService";
+import type { LoginData, LoginResponse } from "@/api/authService";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { login } from "@/api/authService";
+import { UserContext } from "@/context/UserContext";
+import { useContext } from "react";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const user = useContext(UserContext);
 
   const {
     register,
@@ -18,7 +21,13 @@ export const Login = () => {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: () => {
+    onSuccess: (data: LoginResponse) => {
+      console.log("Login successful:", data);
+      user.setUser({
+        name: data.user.fullName,
+        email: data.user.email,
+        id: data.user.id,
+      });
       navigate({ to: "/" });
     },
     onError: (error: AxiosError) => {

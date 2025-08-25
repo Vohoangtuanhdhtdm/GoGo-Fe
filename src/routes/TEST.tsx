@@ -1,5 +1,4 @@
-import { Login } from "@/components/module/Auth/Login";
-import { Register } from "@/components/module/Auth/Register";
+import { Dashboard } from "@/components/Test";
 
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -10,8 +9,7 @@ export const Route = createFileRoute("/TEST")({
 function RouteComponent() {
   return (
     <div>
-      {/* <Login /> */}
-      {/* <Register /> */}
+      <Dashboard />
     </div>
   );
 }

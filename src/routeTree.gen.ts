@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RankingRouteImport } from './routes/ranking'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PlayVideoRouteImport } from './routes/playVideo'
+import { Route as LearnRHFRouteImport } from './routes/learnRHF'
 import { Route as CourseDetailRouteImport } from './routes/courseDetail'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as TESTRouteImport } from './routes/TEST'
@@ -35,6 +36,11 @@ const ProfileRoute = ProfileRouteImport.update({
 const PlayVideoRoute = PlayVideoRouteImport.update({
   id: '/playVideo',
   path: '/playVideo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnRHFRoute = LearnRHFRouteImport.update({
+  id: '/learnRHF',
+  path: '/learnRHF',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CourseDetailRoute = CourseDetailRouteImport.update({
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
   '/courseDetail': typeof CourseDetailRoute
+  '/learnRHF': typeof LearnRHFRoute
   '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
   '/courseDetail': typeof CourseDetailRoute
+  '/learnRHF': typeof LearnRHFRoute
   '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
@@ -117,6 +125,7 @@ export interface FileRoutesById {
   '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
   '/courseDetail': typeof CourseDetailRoute
+  '/learnRHF': typeof LearnRHFRoute
   '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/TEST'
     | '/about'
     | '/courseDetail'
+    | '/learnRHF'
     | '/playVideo'
     | '/profile'
     | '/ranking'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/TEST'
     | '/about'
     | '/courseDetail'
+    | '/learnRHF'
     | '/playVideo'
     | '/profile'
     | '/ranking'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/TEST'
     | '/about'
     | '/courseDetail'
+    | '/learnRHF'
     | '/playVideo'
     | '/profile'
     | '/ranking'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   TESTRoute: typeof TESTRoute
   AboutRoute: typeof AboutRoute
   CourseDetailRoute: typeof CourseDetailRoute
+  LearnRHFRoute: typeof LearnRHFRoute
   PlayVideoRoute: typeof PlayVideoRoute
   ProfileRoute: typeof ProfileRoute
   RankingRoute: typeof RankingRoute
@@ -207,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/playVideo'
       fullPath: '/playVideo'
       preLoaderRoute: typeof PlayVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learnRHF': {
+      id: '/learnRHF'
+      path: '/learnRHF'
+      fullPath: '/learnRHF'
+      preLoaderRoute: typeof LearnRHFRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/courseDetail': {
@@ -280,6 +300,7 @@ const rootRouteChildren: RootRouteChildren = {
   TESTRoute: TESTRoute,
   AboutRoute: AboutRoute,
   CourseDetailRoute: CourseDetailRoute,
+  LearnRHFRoute: LearnRHFRoute,
   PlayVideoRoute: PlayVideoRoute,
   ProfileRoute: ProfileRoute,
   RankingRoute: RankingRoute,

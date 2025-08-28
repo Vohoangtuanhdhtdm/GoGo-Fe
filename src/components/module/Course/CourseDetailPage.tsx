@@ -8,7 +8,11 @@ import { CourseDetailSkeleton } from "./CourseDetailSkeleton";
 import { CourseCurriculum } from "./CourseCurriculum";
 import { CourseSidebar } from "./CourseSidebar";
 
-export const CourseDetailPage = () => {
+type CourseDetailPageProps = {
+  courseId: string;
+};
+
+export const CourseDetailPage = ({ courseId }: CourseDetailPageProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [course, setCourse] = useState<Course | null>(null);
 

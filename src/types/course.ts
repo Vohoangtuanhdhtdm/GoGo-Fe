@@ -1,3 +1,15 @@
+export type TCourse = {
+  id: string;
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  price: number;
+  skillLevel: string;
+};
+
+// Response body là một mảng các course
+export type TCourseResponse = TCourse[];
+
 // --- User & Profile ---
 export interface UserProfile {
   name: string;

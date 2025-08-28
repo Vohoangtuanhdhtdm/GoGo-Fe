@@ -1,5 +1,4 @@
 import { CourseFollow } from "@/components/module/Home/CourseFollow";
-import { CourseNew } from "@/components/module/Home/CourseNew";
 
 import { createFileRoute } from "@tanstack/react-router";
 
@@ -15,9 +14,6 @@ function Index() {
       </div>
 
       <div>
-        <div className="p-10">
-          <CourseNew />
-        </div>
         <hr className="my-8 w-full border-t" />
         <div className="p-10">
           <CourseFollow />

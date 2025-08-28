@@ -1,4 +1,4 @@
-import { api } from "@/service/api";
+import { api } from "@/axios/axiosConfig";
 import Cookies from "js-cookie";
 
 // Lưu token vào cookie

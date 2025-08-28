@@ -19,11 +19,15 @@ export interface LoginResponse {
 export const login = async (data: LoginData) => {
   const response = await api.post("/Account/login", data);
   console.log("response", response.data);
-  Cookies.set("token", response.data.token, {
+  Cookies.set("accessToken", response.data.token, {
     expires: 7,
     secure: true,
     sameSite: "Strict",
   });
 
   return response.data;
+};
+
+export const logout = () => {
+  Cookies.remove("accessToken");
 };

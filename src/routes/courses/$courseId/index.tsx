@@ -9,9 +9,8 @@ function RouteComponent() {
   const { courseId } = Route.useParams();
   return (
     <div>
-      <h2>Chi tiết khóa học: {courseId}</h2>
       <div>
-        <CourseDetailPage />
+        <CourseDetailPage courseId={courseId} />
       </div>
     </div>
   );

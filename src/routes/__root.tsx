@@ -44,7 +44,7 @@ export const Route = createRootRoute({
               Khóa học
             </MenubarTrigger>
             <MenubarContent>
-              <Link to="/courses">
+              <Link to="/course">
                 <MenubarItem>
                   <Library className="mr-2 h-4 w-4" />
                   Tất cả khóa học
@@ -122,9 +122,9 @@ export const Route = createRootRoute({
         </div>
       </Menubar>
 
-      <div className="p-4">
+      <main className="p-4">
         <Outlet />
-      </div>
+      </main>
 
       <TanStackRouterDevtools />
     </UserContextProvider>

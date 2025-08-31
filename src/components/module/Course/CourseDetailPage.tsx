@@ -24,19 +24,21 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { coursesByIdService } from "@/api/courseService";
 import { modulesOfCourseService } from "@/api/moduleService";
+import { useNavigate } from "@tanstack/react-router";
 
 type CourseDetailPageProps = {
   courseId: string;
 };
 
 export const CourseDetailPage = ({ courseId }: CourseDetailPageProps) => {
+  const naigate = useNavigate();
   const { data: course, isLoading: isLoadingCourse } = useQuery({
-    queryKey: ["course", courseId],
+    queryKey: ["courseDetail", courseId],
     queryFn: () => coursesByIdService(courseId),
   });
 
   const { data: modules, isLoading: isLoadingModules } = useQuery({
-    queryKey: ["modules", courseId],
+    queryKey: ["courseModulesDetail", courseId],
     queryFn: () => modulesOfCourseService(courseId),
     enabled: !!course,
   });
@@ -80,7 +82,7 @@ export const CourseDetailPage = ({ courseId }: CourseDetailPageProps) => {
         </div>
       </div>
 
-      <div className="container mx-auto py-12">
+      <div className="container mx-auto p-8">
         <div className="grid md:grid-cols-3 gap-x-12">
           {/* Left Column */}
           <div className="md:col-span-2">
@@ -129,6 +131,16 @@ export const CourseDetailPage = ({ courseId }: CourseDetailPageProps) => {
                     <AccordionContent className="pl-8">
                       {module.description}
                     </AccordionContent>
+                    <Button
+                      onClick={() =>
+                        naigate({
+                          to: "/course/$courseId/modules/$modulesId",
+                          params: { courseId: courseId, modulesId: module.id },
+                        })
+                      }
+                    >
+                      Bắt đầu học
+                    </Button>
                   </AccordionItem>
                 ))}
             </Accordion>

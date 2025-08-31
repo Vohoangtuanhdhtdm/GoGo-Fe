@@ -11,16 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RankingRouteImport } from './routes/ranking'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as PlayVideoRouteImport } from './routes/playVideo'
 import { Route as LearnRHFRouteImport } from './routes/learnRHF'
-import { Route as CourseDetailRouteImport } from './routes/courseDetail'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as TESTRouteImport } from './routes/TEST'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CoursesIndexRouteImport } from './routes/courses/index'
+import { Route as CourseIndexRouteImport } from './routes/course/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
-import { Route as CoursesCourseIdIndexRouteImport } from './routes/courses/$courseId/index'
+import { Route as CourseCourseIdIndexRouteImport } from './routes/course/$courseId/index'
+import { Route as CourseCourseIdModulesModulesIdIndexRouteImport } from './routes/course/$courseId/modules/$modulesId/index'
+import { Route as CourseCourseIdModulesModulesIdLessonsLessonIdRouteImport } from './routes/course/$courseId/modules/$modulesId/lessons/$lessonId'
 
 const RankingRoute = RankingRouteImport.update({
   id: '/ranking',
@@ -32,19 +32,9 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlayVideoRoute = PlayVideoRouteImport.update({
-  id: '/playVideo',
-  path: '/playVideo',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LearnRHFRoute = LearnRHFRouteImport.update({
   id: '/learnRHF',
   path: '/learnRHF',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CourseDetailRoute = CourseDetailRouteImport.update({
-  id: '/courseDetail',
-  path: '/courseDetail',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -62,9 +52,9 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CoursesIndexRoute = CoursesIndexRouteImport.update({
-  id: '/courses/',
-  path: '/courses/',
+const CourseIndexRoute = CourseIndexRouteImport.update({
+  id: '/course/',
+  path: '/course/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRegisterRoute = AuthRegisterRouteImport.update({
@@ -77,54 +67,66 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CoursesCourseIdIndexRoute = CoursesCourseIdIndexRouteImport.update({
-  id: '/courses/$courseId/',
-  path: '/courses/$courseId/',
+const CourseCourseIdIndexRoute = CourseCourseIdIndexRouteImport.update({
+  id: '/course/$courseId/',
+  path: '/course/$courseId/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CourseCourseIdModulesModulesIdIndexRoute =
+  CourseCourseIdModulesModulesIdIndexRouteImport.update({
+    id: '/course/$courseId/modules/$modulesId/',
+    path: '/course/$courseId/modules/$modulesId/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CourseCourseIdModulesModulesIdLessonsLessonIdRoute =
+  CourseCourseIdModulesModulesIdLessonsLessonIdRouteImport.update({
+    id: '/course/$courseId/modules/$modulesId/lessons/$lessonId',
+    path: '/course/$courseId/modules/$modulesId/lessons/$lessonId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
-  '/courseDetail': typeof CourseDetailRoute
   '/learnRHF': typeof LearnRHFRoute
-  '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/courses': typeof CoursesIndexRoute
-  '/courses/$courseId': typeof CoursesCourseIdIndexRoute
+  '/course': typeof CourseIndexRoute
+  '/course/$courseId': typeof CourseCourseIdIndexRoute
+  '/course/$courseId/modules/$modulesId': typeof CourseCourseIdModulesModulesIdIndexRoute
+  '/course/$courseId/modules/$modulesId/lessons/$lessonId': typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
-  '/courseDetail': typeof CourseDetailRoute
   '/learnRHF': typeof LearnRHFRoute
-  '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/courses': typeof CoursesIndexRoute
-  '/courses/$courseId': typeof CoursesCourseIdIndexRoute
+  '/course': typeof CourseIndexRoute
+  '/course/$courseId': typeof CourseCourseIdIndexRoute
+  '/course/$courseId/modules/$modulesId': typeof CourseCourseIdModulesModulesIdIndexRoute
+  '/course/$courseId/modules/$modulesId/lessons/$lessonId': typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
-  '/courseDetail': typeof CourseDetailRoute
   '/learnRHF': typeof LearnRHFRoute
-  '/playVideo': typeof PlayVideoRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
-  '/courses/': typeof CoursesIndexRoute
-  '/courses/$courseId/': typeof CoursesCourseIdIndexRoute
+  '/course/': typeof CourseIndexRoute
+  '/course/$courseId/': typeof CourseCourseIdIndexRoute
+  '/course/$courseId/modules/$modulesId/': typeof CourseCourseIdModulesModulesIdIndexRoute
+  '/course/$courseId/modules/$modulesId/lessons/$lessonId': typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -132,58 +134,58 @@ export interface FileRouteTypes {
     | '/'
     | '/TEST'
     | '/about'
-    | '/courseDetail'
     | '/learnRHF'
-    | '/playVideo'
     | '/profile'
     | '/ranking'
     | '/auth/login'
     | '/auth/register'
-    | '/courses'
-    | '/courses/$courseId'
+    | '/course'
+    | '/course/$courseId'
+    | '/course/$courseId/modules/$modulesId'
+    | '/course/$courseId/modules/$modulesId/lessons/$lessonId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/TEST'
     | '/about'
-    | '/courseDetail'
     | '/learnRHF'
-    | '/playVideo'
     | '/profile'
     | '/ranking'
     | '/auth/login'
     | '/auth/register'
-    | '/courses'
-    | '/courses/$courseId'
+    | '/course'
+    | '/course/$courseId'
+    | '/course/$courseId/modules/$modulesId'
+    | '/course/$courseId/modules/$modulesId/lessons/$lessonId'
   id:
     | '__root__'
     | '/'
     | '/TEST'
     | '/about'
-    | '/courseDetail'
     | '/learnRHF'
-    | '/playVideo'
     | '/profile'
     | '/ranking'
     | '/auth/login'
     | '/auth/register'
-    | '/courses/'
-    | '/courses/$courseId/'
+    | '/course/'
+    | '/course/$courseId/'
+    | '/course/$courseId/modules/$modulesId/'
+    | '/course/$courseId/modules/$modulesId/lessons/$lessonId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TESTRoute: typeof TESTRoute
   AboutRoute: typeof AboutRoute
-  CourseDetailRoute: typeof CourseDetailRoute
   LearnRHFRoute: typeof LearnRHFRoute
-  PlayVideoRoute: typeof PlayVideoRoute
   ProfileRoute: typeof ProfileRoute
   RankingRoute: typeof RankingRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
-  CoursesIndexRoute: typeof CoursesIndexRoute
-  CoursesCourseIdIndexRoute: typeof CoursesCourseIdIndexRoute
+  CourseIndexRoute: typeof CourseIndexRoute
+  CourseCourseIdIndexRoute: typeof CourseCourseIdIndexRoute
+  CourseCourseIdModulesModulesIdIndexRoute: typeof CourseCourseIdModulesModulesIdIndexRoute
+  CourseCourseIdModulesModulesIdLessonsLessonIdRoute: typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -202,25 +204,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/playVideo': {
-      id: '/playVideo'
-      path: '/playVideo'
-      fullPath: '/playVideo'
-      preLoaderRoute: typeof PlayVideoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/learnRHF': {
       id: '/learnRHF'
       path: '/learnRHF'
       fullPath: '/learnRHF'
       preLoaderRoute: typeof LearnRHFRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/courseDetail': {
-      id: '/courseDetail'
-      path: '/courseDetail'
-      fullPath: '/courseDetail'
-      preLoaderRoute: typeof CourseDetailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -244,11 +232,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/courses/': {
-      id: '/courses/'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof CoursesIndexRouteImport
+    '/course/': {
+      id: '/course/'
+      path: '/course'
+      fullPath: '/course'
+      preLoaderRoute: typeof CourseIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/register': {
@@ -265,11 +253,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/courses/$courseId/': {
-      id: '/courses/$courseId/'
-      path: '/courses/$courseId'
-      fullPath: '/courses/$courseId'
-      preLoaderRoute: typeof CoursesCourseIdIndexRouteImport
+    '/course/$courseId/': {
+      id: '/course/$courseId/'
+      path: '/course/$courseId'
+      fullPath: '/course/$courseId'
+      preLoaderRoute: typeof CourseCourseIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/course/$courseId/modules/$modulesId/': {
+      id: '/course/$courseId/modules/$modulesId/'
+      path: '/course/$courseId/modules/$modulesId'
+      fullPath: '/course/$courseId/modules/$modulesId'
+      preLoaderRoute: typeof CourseCourseIdModulesModulesIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/course/$courseId/modules/$modulesId/lessons/$lessonId': {
+      id: '/course/$courseId/modules/$modulesId/lessons/$lessonId'
+      path: '/course/$courseId/modules/$modulesId/lessons/$lessonId'
+      fullPath: '/course/$courseId/modules/$modulesId/lessons/$lessonId'
+      preLoaderRoute: typeof CourseCourseIdModulesModulesIdLessonsLessonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -279,15 +281,17 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TESTRoute: TESTRoute,
   AboutRoute: AboutRoute,
-  CourseDetailRoute: CourseDetailRoute,
   LearnRHFRoute: LearnRHFRoute,
-  PlayVideoRoute: PlayVideoRoute,
   ProfileRoute: ProfileRoute,
   RankingRoute: RankingRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
-  CoursesIndexRoute: CoursesIndexRoute,
-  CoursesCourseIdIndexRoute: CoursesCourseIdIndexRoute,
+  CourseIndexRoute: CourseIndexRoute,
+  CourseCourseIdIndexRoute: CourseCourseIdIndexRoute,
+  CourseCourseIdModulesModulesIdIndexRoute:
+    CourseCourseIdModulesModulesIdIndexRoute,
+  CourseCourseIdModulesModulesIdLessonsLessonIdRoute:
+    CourseCourseIdModulesModulesIdLessonsLessonIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

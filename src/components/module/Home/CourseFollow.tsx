@@ -73,7 +73,7 @@ export const CourseFollow = () => {
   }
 
   const onCardClick = (courseId: string) => {
-    navigate({ to: "/courses/$courseId", params: { courseId } });
+    navigate({ to: "/course/$courseId", params: { courseId } });
   };
 
   return (

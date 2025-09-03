@@ -5,5 +5,10 @@ export const Route = createFileRoute("/admin/course/$courseId/modules/create")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/admin/course/$courseId/modules/create"!</div>;
+  const { courseId } = Route.useParams();
+  return (
+    <div>
+      Hello "/admin/course/$courseId/modules/create"! <h1>{courseId}</h1>
+    </div>
+  );
 }

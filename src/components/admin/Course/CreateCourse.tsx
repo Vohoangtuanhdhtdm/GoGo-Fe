@@ -25,7 +25,6 @@ import { useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { createCourse } from "@/api/courseService";
 
-// Định nghĩa schema với z.preprocess cho price
 export const CourseCreateSchema = z.object({
   name: z.string().min(1, {
     message: "Tên khóa học không được để trống.",

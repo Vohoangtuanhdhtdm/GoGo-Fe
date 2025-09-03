@@ -9,7 +9,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AlertTriangle, Pencil, PlusCircle, Trash2 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 
-// Giả sử bạn có một component Layout cho trang admin
 function AdminCourseListPage() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -69,7 +68,6 @@ function AdminCourseListPage() {
   }
 
   if (isError) {
-    // Component báo lỗi giữ nguyên
     return (
       <div className="container mx-auto py-8">
         <Alert variant="destructive">
@@ -84,7 +82,7 @@ function AdminCourseListPage() {
   }
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto p-8">
       {/* Header của trang quản lý */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Quản lý Khóa học</h1>

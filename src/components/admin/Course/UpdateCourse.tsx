@@ -2,7 +2,6 @@ import { coursesByIdService, updateCourse } from "@/api/courseService";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import z from "zod";
 import {
   Form,
   FormControl,
@@ -26,46 +25,26 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { Loader2 } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
+import { CreateModuleModal } from "../ModulesCourse/CreateModuleModal";
+import { ModuleList } from "../ModulesCourse/ModuleList";
+import type { CourseUpdateValues } from "@/components/schema/course-schema";
 
 type UpdateCourseProps = {
   courseId: string;
 };
-
-export const CourseUpdateSchema = z.object({
-  name: z.string().min(1, {
-    message: "Tên khóa học không được để trống.",
-  }),
-  description: z.string().min(1, {
-    message: "Mô tả khóa học không được để trống.",
-  }),
-  thumbnailUrl: z.string().url({
-    message: "URL hình ảnh không hợp lệ.",
-  }),
-  price: z.preprocess(
-    (val) => (typeof val === "string" ? Number(val) : val),
-    z.number().min(1, {
-      message: "Giá khóa học phải lớn hơn hoặc bằng 1.",
-    })
-  ),
-  skillLevel: z.string().min(1, {
-    message: "Mô tả khóa học không được để trống.",
-  }),
-});
-export type CourseUpdateValues = z.infer<typeof CourseUpdateSchema>;
 
 export const UpdateCourse = ({ courseId }: UpdateCourseProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["course", courseId],
-    queryFn: () => coursesByIdService(courseId), // Giả sử bạn có hàm fetchCourseById để lấy dữ liệu khóa học
+    queryFn: () => coursesByIdService(courseId),
   });
   const form = useForm<CourseUpdateValues>();
   const thumbnailUrl = form.watch("thumbnailUrl");
 
   const [imageError, setImageError] = useState(false);
 
-  // 3. FIX: Dùng useEffect để điền dữ liệu vào form sau khi useQuery fetch xong
   useEffect(() => {
     if (data) {
       form.reset({
@@ -92,19 +71,33 @@ export const UpdateCourse = ({ courseId }: UpdateCourseProps) => {
     },
   });
 
-  // 5. Hàm onSubmit mới, gọi mutation
   const onUpdateCourse = (data: CourseUpdateValues) => {
     updateCourseMutation.mutate(data);
   };
 
-  // Bạn có thể thêm Skeleton UI cho trạng thái loading ban đầu
   if (isLoading) return <div>Đang tải dữ liệu khóa học...</div>;
   if (isError) return <div>Lỗi khi tải dữ liệu.</div>;
   return (
     <div className="container mx-auto max-w-2xl p-6">
+      <div className="container mx-auto py-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold">
+            Chỉnh sửa Khóa học {data?.name}
+          </h1>
+          {/* Nút mở modal tạo module */}
+          <CreateModuleModal courseId={courseId} />
+        </div>
+
+        {/* Phần hiển thị danh sách các module hiện có */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-semibold mb-4">
+            Các Module của Khóa học
+          </h2>
+          <ModuleList courseId={courseId} />
+        </div>
+      </div>
       <Card className="shadow-lg">
         <CardHeader>
-          {/* 6. Sửa lại tiêu đề cho đúng chức năng */}
           <CardTitle className="text-2xl font-bold">
             Cập nhật khóa học
           </CardTitle>

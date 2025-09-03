@@ -1,6 +1,8 @@
-import { z } from "zod";
+import { coursesByIdService, updateCourse } from "@/api/courseService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
+import z from "zod";
 import {
   Form,
   FormControl,
@@ -20,13 +22,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { createCourse } from "@/api/courseService";
+import { Separator } from "@/components/ui/separator";
+import { Loader2 } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
 
-// Định nghĩa schema với z.preprocess cho price
-export const CourseCreateSchema = z.object({
+type UpdateCourseProps = {
+  courseId: string;
+};
+
+export const CourseUpdateSchema = z.object({
   name: z.string().min(1, {
     message: "Tên khóa học không được để trống.",
   }),
@@ -46,44 +51,68 @@ export const CourseCreateSchema = z.object({
     message: "Mô tả khóa học không được để trống.",
   }),
 });
+export type CourseUpdateValues = z.infer<typeof CourseUpdateSchema>;
 
-export type CourseCreateValues = z.infer<typeof CourseCreateSchema>;
-
-export const CreateCourse = () => {
-  const form = useForm<CourseCreateValues>({
-    defaultValues: {
-      name: "",
-      description: "",
-      thumbnailUrl: "",
-      price: 1,
-      skillLevel: "Beginner",
-    },
+export const UpdateCourse = ({ courseId }: UpdateCourseProps) => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["course", courseId],
+    queryFn: () => coursesByIdService(courseId), // Giả sử bạn có hàm fetchCourseById để lấy dữ liệu khóa học
   });
-
+  const form = useForm<CourseUpdateValues>();
   const thumbnailUrl = form.watch("thumbnailUrl");
 
   const [imageError, setImageError] = useState(false);
 
-  const onSubmitCreateCourse = async (data: CourseCreateValues) => {
-    try {
-      const result = await createCourse(data);
-      console.log("Khóa học được tạo:", result);
-      form.reset();
-    } catch (error) {
-      console.error("Error creating course:", error);
+  // 3. FIX: Dùng useEffect để điền dữ liệu vào form sau khi useQuery fetch xong
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        name: data.name || "",
+        description: data.description || "",
+        thumbnailUrl: data.thumbnailUrl || "",
+        price: data.price || 0,
+        skillLevel: data.skillLevel || "",
+      });
     }
+  }, [data, form]);
+
+  const updateCourseMutation = useMutation({
+    mutationFn: (updatedData: CourseUpdateValues) =>
+      updateCourse(courseId, updatedData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["courses"] });
+      queryClient.invalidateQueries({ queryKey: ["course", courseId] });
+      console.log("Cập nhật khóa học thành công!");
+      navigate({ to: "/admin/course" });
+    },
+    onError: (error) => {
+      console.error("Lỗi khi cập nhật khóa học:", error);
+    },
+  });
+
+  // 5. Hàm onSubmit mới, gọi mutation
+  const onUpdateCourse = (data: CourseUpdateValues) => {
+    updateCourseMutation.mutate(data);
   };
 
+  // Bạn có thể thêm Skeleton UI cho trạng thái loading ban đầu
+  if (isLoading) return <div>Đang tải dữ liệu khóa học...</div>;
+  if (isError) return <div>Lỗi khi tải dữ liệu.</div>;
   return (
     <div className="container mx-auto max-w-2xl p-6">
       <Card className="shadow-lg">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Tạo khóa học mới</CardTitle>
+          {/* 6. Sửa lại tiêu đề cho đúng chức năng */}
+          <CardTitle className="text-2xl font-bold">
+            Cập nhật khóa học
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(onSubmitCreateCourse)}
+              onSubmit={form.handleSubmit(onUpdateCourse)}
               className="space-y-6"
             >
               <div className="grid grid-cols-1 gap-6">
@@ -232,15 +261,24 @@ export const CreateCourse = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => form.reset()}
+                  disabled={updateCourseMutation.isPending}
+                  onClick={() => form.reset(data)}
                 >
-                  Hủy
+                  Hoàn tác
                 </Button>
                 <Button
                   type="submit"
                   className="bg-primary text-primary-foreground"
+                  disabled={updateCourseMutation.isPending}
                 >
-                  Tạo khóa học
+                  {updateCourseMutation.isPending ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Đang lưu...
+                    </>
+                  ) : (
+                    "Lưu thay đổi"
+                  )}
                 </Button>
               </div>
             </form>

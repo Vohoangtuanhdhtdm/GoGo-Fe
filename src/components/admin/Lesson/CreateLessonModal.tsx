@@ -72,9 +72,11 @@ export function CreateLessonModal({ moduleId }: CreateLessonModalProps) {
     onError: (error) => console.log("Thêm bài học thất bại: " + error.message),
   });
 
-  function onSubmit(data: Lesson) {
-    console.log("Submitting lesson data:", data);
-    createLessonMutation.mutate(data);
+  function onSubmit(data: LessonFormValues) {
+    const lessonData: Lesson = {
+      ...data,
+    };
+    createLessonMutation.mutate(lessonData);
   }
 
   return (

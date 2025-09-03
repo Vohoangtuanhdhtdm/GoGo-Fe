@@ -7,6 +7,14 @@ export type TCourse = {
   skillLevel: string;
 };
 
+export type CreateCourse = {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  price: number;
+  skillLevel: string;
+};
+
 // Response body là một mảng các course
 export type TCourseResponse = TCourse[];
 

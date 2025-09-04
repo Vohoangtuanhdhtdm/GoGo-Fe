@@ -7,10 +7,11 @@ import { AxiosError } from "axios";
 import { login } from "@/api/authService";
 import { UserContext } from "@/context/UserContext";
 import { useContext } from "react";
+import { getInfoUser } from "@/api/userServiece";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const user = useContext(UserContext);
+  const { setUser, setIsAuth, setIsAdmin } = useContext(UserContext); // ✅ destructure thẳng
 
   const {
     register,
@@ -21,13 +22,18 @@ export const Login = () => {
 
   const loginMutation = useMutation({
     mutationFn: login,
-    onSuccess: (data: LoginResponse) => {
+    onSuccess: async (data: LoginResponse) => {
       console.log("Login successful:", data);
-      user.setUser({
+      const userRole = await getInfoUser(data.user.id);
+      setUser({
+        id: data.user.id,
         name: data.user.fullName,
         email: data.user.email,
-        id: data.user.id,
       });
+      if (userRole.role.includes("Admin")) {
+        setIsAdmin(true);
+      }
+      setIsAuth(true);
       navigate({ to: "/" });
     },
     onError: (error: AxiosError) => {

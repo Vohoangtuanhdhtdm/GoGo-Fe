@@ -128,19 +128,26 @@ export const CourseDetailPage = ({ courseId }: CourseDetailPageProps) => {
                         <span className="font-semibold">{module.title}</span>
                       </div>
                     </AccordionTrigger>
-                    <AccordionContent className="pl-8">
-                      {module.description}
+                    <AccordionContent className="pl-8 space-y-4">
+                      <p className="text-sm text-gray-600">
+                        {module.description}
+                      </p>
+                      <div className="flex justify-end">
+                        <Button
+                          onClick={() =>
+                            naigate({
+                              to: "/course/$courseId/modules/$modulesId",
+                              params: {
+                                courseId: courseId,
+                                modulesId: module.id,
+                              },
+                            })
+                          }
+                        >
+                          Bắt đầu học
+                        </Button>
+                      </div>
                     </AccordionContent>
-                    <Button
-                      onClick={() =>
-                        naigate({
-                          to: "/course/$courseId/modules/$modulesId",
-                          params: { courseId: courseId, modulesId: module.id },
-                        })
-                      }
-                    >
-                      Bắt đầu học
-                    </Button>
                   </AccordionItem>
                 ))}
             </Accordion>

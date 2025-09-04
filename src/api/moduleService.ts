@@ -22,3 +22,8 @@ export const createModuleService = async (
   const response = await api.post(`/Modules/${courseId}/modules`, moduleData);
   return response.data;
 };
+
+export const deleteModuleService = async (moduleId: string) => {
+  const response = await api.delete(`/Modules/${moduleId}`);
+  return response.data;
+};

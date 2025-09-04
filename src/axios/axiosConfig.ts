@@ -11,7 +11,7 @@ export const api: AxiosInstance = axios.create({
 
 // Thêm token từ cookie vào header nếu có
 api.interceptors.request.use((config) => {
-  const token = Cookies.get("token");
+  const token = Cookies.get("accessToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }

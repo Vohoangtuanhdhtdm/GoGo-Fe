@@ -1,11 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, Pencil, Trash2 } from "lucide-react";
-import { modulesOfCourseService } from "@/api/moduleService";
+import {
+  deleteModuleService,
+  modulesOfCourseService,
+} from "@/api/moduleService";
 import { CreateLessonModal } from "../Lesson/CreateLessonModal";
 import {
   Accordion,
@@ -20,10 +23,21 @@ interface ModuleListProps {
 }
 
 export function ModuleList({ courseId }: ModuleListProps) {
+  const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["modules", courseId],
     queryFn: () => modulesOfCourseService(courseId),
     enabled: !!courseId, // Chỉ chạy query khi courseId có tồn tại
+  });
+
+  const deleteModuleMutation = useMutation({
+    mutationFn: deleteModuleService,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["modules", courseId] });
+    },
+    onError: (error) => {
+      console.error("Lỗi khi xóa module khóa học:", error);
+    },
   });
 
   if (isLoading) {
@@ -57,7 +71,13 @@ export function ModuleList({ courseId }: ModuleListProps) {
       </Alert>
     );
   }
-
+  const handleDelete = async (moduleId: string, title: string) => {
+    if (
+      window.confirm(`Bạn có chắc chắn muốn xóa khóa học "${title}" không?`)
+    ) {
+      deleteModuleMutation.mutate(moduleId);
+    }
+  };
   const sortedModules = data?.sort((a, b) => a.displayOrder - b.displayOrder);
 
   if (!sortedModules || sortedModules.length === 0) {
@@ -97,6 +117,7 @@ export function ModuleList({ courseId }: ModuleListProps) {
                   <Button
                     variant="ghost"
                     size="icon"
+                    onClick={() => handleDelete(module.id, module.title)}
                     className="text-red-500 hover:text-red-600"
                   >
                     <Trash2 className="h-4 w-4" />

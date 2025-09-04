@@ -26,3 +26,8 @@ export const createLessonService = async (
   const response = await api.post(`Lesson/${moduleId}/Lesson`, lessonData);
   return response.data;
 };
+
+export const deleteLessonService = async (lessonId: string) => {
+  const response = await api.delete(`Lesson/${lessonId}`);
+  return response.data;
+};

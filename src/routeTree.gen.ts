@@ -11,23 +11,18 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RankingRouteImport } from './routes/ranking'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as LearnRHFRouteImport } from './routes/learnRHF'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as TESTRouteImport } from './routes/TEST'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CourseIndexRouteImport } from './routes/course/index'
 import { Route as AuthRegisterRouteImport } from './routes/auth/register'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as CourseCourseIdIndexRouteImport } from './routes/course/$courseId/index'
 import { Route as AdminCourseIndexRouteImport } from './routes/admin/course/index'
+import { Route as AdminRoleAssignRoleRouteImport } from './routes/admin/role/assign-role'
 import { Route as AdminCourseCreateRouteImport } from './routes/admin/course/create'
 import { Route as AdminCourseCourseIdUpdateRouteImport } from './routes/admin/course/$courseId/update'
 import { Route as CourseCourseIdModulesModulesIdIndexRouteImport } from './routes/course/$courseId/modules/$modulesId/index'
-import { Route as AdminCourseCourseIdModulesCreateRouteImport } from './routes/admin/course/$courseId/modules/create'
 import { Route as CourseCourseIdModulesModulesIdLessonsLessonIdRouteImport } from './routes/course/$courseId/modules/$modulesId/lessons/$lessonId'
-import { Route as AdminCourseCourseIdModulesModulesIdUpdateRouteImport } from './routes/admin/course/$courseId/modules/$modulesId/update'
-import { Route as AdminCourseCourseIdModulesModulesIdLessonsCreateRouteImport } from './routes/admin/course/$courseId/modules/$modulesId/lessons/create'
-import { Route as AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRouteImport } from './routes/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
 
 const RankingRoute = RankingRouteImport.update({
   id: '/ranking',
@@ -39,19 +34,9 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LearnRHFRoute = LearnRHFRouteImport.update({
-  id: '/learnRHF',
-  path: '/learnRHF',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TESTRoute = TESTRouteImport.update({
-  id: '/TEST',
-  path: '/TEST',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -84,6 +69,11 @@ const AdminCourseIndexRoute = AdminCourseIndexRouteImport.update({
   path: '/admin/course/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoleAssignRoleRoute = AdminRoleAssignRoleRouteImport.update({
+  id: '/admin/role/assign-role',
+  path: '/admin/role/assign-role',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminCourseCreateRoute = AdminCourseCreateRouteImport.update({
   id: '/admin/course/create',
   path: '/admin/course/create',
@@ -101,187 +91,128 @@ const CourseCourseIdModulesModulesIdIndexRoute =
     path: '/course/$courseId/modules/$modulesId/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminCourseCourseIdModulesCreateRoute =
-  AdminCourseCourseIdModulesCreateRouteImport.update({
-    id: '/admin/course/$courseId/modules/create',
-    path: '/admin/course/$courseId/modules/create',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const CourseCourseIdModulesModulesIdLessonsLessonIdRoute =
   CourseCourseIdModulesModulesIdLessonsLessonIdRouteImport.update({
     id: '/course/$courseId/modules/$modulesId/lessons/$lessonId',
     path: '/course/$courseId/modules/$modulesId/lessons/$lessonId',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AdminCourseCourseIdModulesModulesIdUpdateRoute =
-  AdminCourseCourseIdModulesModulesIdUpdateRouteImport.update({
-    id: '/admin/course/$courseId/modules/$modulesId/update',
-    path: '/admin/course/$courseId/modules/$modulesId/update',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminCourseCourseIdModulesModulesIdLessonsCreateRoute =
-  AdminCourseCourseIdModulesModulesIdLessonsCreateRouteImport.update({
-    id: '/admin/course/$courseId/modules/$modulesId/lessons/create',
-    path: '/admin/course/$courseId/modules/$modulesId/lessons/create',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute =
-  AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRouteImport.update({
-    id: '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update',
-    path: '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
-  '/learnRHF': typeof LearnRHFRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/course': typeof CourseIndexRoute
   '/admin/course/create': typeof AdminCourseCreateRoute
+  '/admin/role/assign-role': typeof AdminRoleAssignRoleRoute
   '/admin/course': typeof AdminCourseIndexRoute
   '/course/$courseId': typeof CourseCourseIdIndexRoute
   '/admin/course/$courseId/update': typeof AdminCourseCourseIdUpdateRoute
-  '/admin/course/$courseId/modules/create': typeof AdminCourseCourseIdModulesCreateRoute
   '/course/$courseId/modules/$modulesId': typeof CourseCourseIdModulesModulesIdIndexRoute
-  '/admin/course/$courseId/modules/$modulesId/update': typeof AdminCourseCourseIdModulesModulesIdUpdateRoute
   '/course/$courseId/modules/$modulesId/lessons/$lessonId': typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
-  '/admin/course/$courseId/modules/$modulesId/lessons/create': typeof AdminCourseCourseIdModulesModulesIdLessonsCreateRoute
-  '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update': typeof AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
-  '/learnRHF': typeof LearnRHFRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/course': typeof CourseIndexRoute
   '/admin/course/create': typeof AdminCourseCreateRoute
+  '/admin/role/assign-role': typeof AdminRoleAssignRoleRoute
   '/admin/course': typeof AdminCourseIndexRoute
   '/course/$courseId': typeof CourseCourseIdIndexRoute
   '/admin/course/$courseId/update': typeof AdminCourseCourseIdUpdateRoute
-  '/admin/course/$courseId/modules/create': typeof AdminCourseCourseIdModulesCreateRoute
   '/course/$courseId/modules/$modulesId': typeof CourseCourseIdModulesModulesIdIndexRoute
-  '/admin/course/$courseId/modules/$modulesId/update': typeof AdminCourseCourseIdModulesModulesIdUpdateRoute
   '/course/$courseId/modules/$modulesId/lessons/$lessonId': typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
-  '/admin/course/$courseId/modules/$modulesId/lessons/create': typeof AdminCourseCourseIdModulesModulesIdLessonsCreateRoute
-  '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update': typeof AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/TEST': typeof TESTRoute
   '/about': typeof AboutRoute
-  '/learnRHF': typeof LearnRHFRoute
   '/profile': typeof ProfileRoute
   '/ranking': typeof RankingRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/register': typeof AuthRegisterRoute
   '/course/': typeof CourseIndexRoute
   '/admin/course/create': typeof AdminCourseCreateRoute
+  '/admin/role/assign-role': typeof AdminRoleAssignRoleRoute
   '/admin/course/': typeof AdminCourseIndexRoute
   '/course/$courseId/': typeof CourseCourseIdIndexRoute
   '/admin/course/$courseId/update': typeof AdminCourseCourseIdUpdateRoute
-  '/admin/course/$courseId/modules/create': typeof AdminCourseCourseIdModulesCreateRoute
   '/course/$courseId/modules/$modulesId/': typeof CourseCourseIdModulesModulesIdIndexRoute
-  '/admin/course/$courseId/modules/$modulesId/update': typeof AdminCourseCourseIdModulesModulesIdUpdateRoute
   '/course/$courseId/modules/$modulesId/lessons/$lessonId': typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
-  '/admin/course/$courseId/modules/$modulesId/lessons/create': typeof AdminCourseCourseIdModulesModulesIdLessonsCreateRoute
-  '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update': typeof AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/TEST'
     | '/about'
-    | '/learnRHF'
     | '/profile'
     | '/ranking'
     | '/auth/login'
     | '/auth/register'
     | '/course'
     | '/admin/course/create'
+    | '/admin/role/assign-role'
     | '/admin/course'
     | '/course/$courseId'
     | '/admin/course/$courseId/update'
-    | '/admin/course/$courseId/modules/create'
     | '/course/$courseId/modules/$modulesId'
-    | '/admin/course/$courseId/modules/$modulesId/update'
     | '/course/$courseId/modules/$modulesId/lessons/$lessonId'
-    | '/admin/course/$courseId/modules/$modulesId/lessons/create'
-    | '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/TEST'
     | '/about'
-    | '/learnRHF'
     | '/profile'
     | '/ranking'
     | '/auth/login'
     | '/auth/register'
     | '/course'
     | '/admin/course/create'
+    | '/admin/role/assign-role'
     | '/admin/course'
     | '/course/$courseId'
     | '/admin/course/$courseId/update'
-    | '/admin/course/$courseId/modules/create'
     | '/course/$courseId/modules/$modulesId'
-    | '/admin/course/$courseId/modules/$modulesId/update'
     | '/course/$courseId/modules/$modulesId/lessons/$lessonId'
-    | '/admin/course/$courseId/modules/$modulesId/lessons/create'
-    | '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
   id:
     | '__root__'
     | '/'
-    | '/TEST'
     | '/about'
-    | '/learnRHF'
     | '/profile'
     | '/ranking'
     | '/auth/login'
     | '/auth/register'
     | '/course/'
     | '/admin/course/create'
+    | '/admin/role/assign-role'
     | '/admin/course/'
     | '/course/$courseId/'
     | '/admin/course/$courseId/update'
-    | '/admin/course/$courseId/modules/create'
     | '/course/$courseId/modules/$modulesId/'
-    | '/admin/course/$courseId/modules/$modulesId/update'
     | '/course/$courseId/modules/$modulesId/lessons/$lessonId'
-    | '/admin/course/$courseId/modules/$modulesId/lessons/create'
-    | '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  TESTRoute: typeof TESTRoute
   AboutRoute: typeof AboutRoute
-  LearnRHFRoute: typeof LearnRHFRoute
   ProfileRoute: typeof ProfileRoute
   RankingRoute: typeof RankingRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthRegisterRoute: typeof AuthRegisterRoute
   CourseIndexRoute: typeof CourseIndexRoute
   AdminCourseCreateRoute: typeof AdminCourseCreateRoute
+  AdminRoleAssignRoleRoute: typeof AdminRoleAssignRoleRoute
   AdminCourseIndexRoute: typeof AdminCourseIndexRoute
   CourseCourseIdIndexRoute: typeof CourseCourseIdIndexRoute
   AdminCourseCourseIdUpdateRoute: typeof AdminCourseCourseIdUpdateRoute
-  AdminCourseCourseIdModulesCreateRoute: typeof AdminCourseCourseIdModulesCreateRoute
   CourseCourseIdModulesModulesIdIndexRoute: typeof CourseCourseIdModulesModulesIdIndexRoute
-  AdminCourseCourseIdModulesModulesIdUpdateRoute: typeof AdminCourseCourseIdModulesModulesIdUpdateRoute
   CourseCourseIdModulesModulesIdLessonsLessonIdRoute: typeof CourseCourseIdModulesModulesIdLessonsLessonIdRoute
-  AdminCourseCourseIdModulesModulesIdLessonsCreateRoute: typeof AdminCourseCourseIdModulesModulesIdLessonsCreateRoute
-  AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute: typeof AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -300,25 +231,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/learnRHF': {
-      id: '/learnRHF'
-      path: '/learnRHF'
-      fullPath: '/learnRHF'
-      preLoaderRoute: typeof LearnRHFRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/TEST': {
-      id: '/TEST'
-      path: '/TEST'
-      fullPath: '/TEST'
-      preLoaderRoute: typeof TESTRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -363,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCourseIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/role/assign-role': {
+      id: '/admin/role/assign-role'
+      path: '/admin/role/assign-role'
+      fullPath: '/admin/role/assign-role'
+      preLoaderRoute: typeof AdminRoleAssignRoleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/course/create': {
       id: '/admin/course/create'
       path: '/admin/course/create'
@@ -384,13 +308,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseCourseIdModulesModulesIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/course/$courseId/modules/create': {
-      id: '/admin/course/$courseId/modules/create'
-      path: '/admin/course/$courseId/modules/create'
-      fullPath: '/admin/course/$courseId/modules/create'
-      preLoaderRoute: typeof AdminCourseCourseIdModulesCreateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/course/$courseId/modules/$modulesId/lessons/$lessonId': {
       id: '/course/$courseId/modules/$modulesId/lessons/$lessonId'
       path: '/course/$courseId/modules/$modulesId/lessons/$lessonId'
@@ -398,55 +315,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CourseCourseIdModulesModulesIdLessonsLessonIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/course/$courseId/modules/$modulesId/update': {
-      id: '/admin/course/$courseId/modules/$modulesId/update'
-      path: '/admin/course/$courseId/modules/$modulesId/update'
-      fullPath: '/admin/course/$courseId/modules/$modulesId/update'
-      preLoaderRoute: typeof AdminCourseCourseIdModulesModulesIdUpdateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/course/$courseId/modules/$modulesId/lessons/create': {
-      id: '/admin/course/$courseId/modules/$modulesId/lessons/create'
-      path: '/admin/course/$courseId/modules/$modulesId/lessons/create'
-      fullPath: '/admin/course/$courseId/modules/$modulesId/lessons/create'
-      preLoaderRoute: typeof AdminCourseCourseIdModulesModulesIdLessonsCreateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update': {
-      id: '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
-      path: '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
-      fullPath: '/admin/course/$courseId/modules/$modulesId/lessons/$lessonId/update'
-      preLoaderRoute: typeof AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  TESTRoute: TESTRoute,
   AboutRoute: AboutRoute,
-  LearnRHFRoute: LearnRHFRoute,
   ProfileRoute: ProfileRoute,
   RankingRoute: RankingRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   CourseIndexRoute: CourseIndexRoute,
   AdminCourseCreateRoute: AdminCourseCreateRoute,
+  AdminRoleAssignRoleRoute: AdminRoleAssignRoleRoute,
   AdminCourseIndexRoute: AdminCourseIndexRoute,
   CourseCourseIdIndexRoute: CourseCourseIdIndexRoute,
   AdminCourseCourseIdUpdateRoute: AdminCourseCourseIdUpdateRoute,
-  AdminCourseCourseIdModulesCreateRoute: AdminCourseCourseIdModulesCreateRoute,
   CourseCourseIdModulesModulesIdIndexRoute:
     CourseCourseIdModulesModulesIdIndexRoute,
-  AdminCourseCourseIdModulesModulesIdUpdateRoute:
-    AdminCourseCourseIdModulesModulesIdUpdateRoute,
   CourseCourseIdModulesModulesIdLessonsLessonIdRoute:
     CourseCourseIdModulesModulesIdLessonsLessonIdRoute,
-  AdminCourseCourseIdModulesModulesIdLessonsCreateRoute:
-    AdminCourseCourseIdModulesModulesIdLessonsCreateRoute,
-  AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute:
-    AdminCourseCourseIdModulesModulesIdLessonsLessonIdUpdateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -28,6 +28,6 @@ export const login = async (data: LoginData) => {
   return response.data;
 };
 
-export const logout = () => {
+export const logout = async () => {
   Cookies.remove("accessToken");
 };

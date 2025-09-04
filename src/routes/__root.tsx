@@ -19,13 +19,24 @@ import {
   Trophy,
   User,
 } from "lucide-react";
-import { UserContextProvider } from "@/context/UserContext";
-import { UserAvatar } from "@/components/module/User/UserAvatar/UserAvatar";
+import { UserContext } from "@/context/UserContext";
 import UILogin from "@/components/module/Auth/UILogin";
+import { useContext } from "react";
+import { logout } from "@/api/authService";
+import { UserAvatar } from "@/components/module/User/UserAvatar/UserAvatar";
 
-export const Route = createRootRoute({
-  component: () => (
-    <UserContextProvider>
+function RootLayout() {
+  const { isAuth, isAdmin, setIsAuth, setUser, setIsAdmin } =
+    useContext(UserContext);
+
+  const handleLogout = async () => {
+    await logout();
+    setUser(null);
+    setIsAuth(false);
+    setIsAdmin(false);
+  };
+  return (
+    <div>
       <Menubar className="rounded-none border-b p-6 flex items-center">
         <div className="w-[15%]">
           <MenubarMenu>
@@ -93,32 +104,41 @@ export const Route = createRootRoute({
             </MenubarContent>
           </MenubarMenu>
         </div>
-        <div className=" ml-24 w-[15%] flex items-center justify-end ">
+        {isAdmin && (
           <MenubarMenu>
-            <UILogin />
-            <MenubarTrigger>
-              {/* <img
-              className="w-10 h-10 rounded-full object-cover border"
-              src="https://i.pinimg.com/736x/76/c8/8c/76c88c7de180333ed87ec46f8f11eb3f.jpg"
-              alt=""
-            /> */}
-              <UserAvatar />
-            </MenubarTrigger>
+            <MenubarTrigger>Admin</MenubarTrigger>
             <MenubarContent>
-              <Link to="/profile">
-                <MenubarItem>
-                  <User className="mr-2 h-4 w-4" />
-                  Thông tin
-                </MenubarItem>
+              <Link to="/admin/course">
+                <MenubarItem>Quản lý hệ thống</MenubarItem>
               </Link>
-              <Link to="/about">
-                <MenubarItem>
-                  <LogOut className="mr-2 h-4 w-4" />
-                  Đăng xuất
-                </MenubarItem>
+              <Link to="/admin/role/assign-role">
+                <MenubarItem>Quản lý nhân sự</MenubarItem>
               </Link>
             </MenubarContent>
           </MenubarMenu>
+        )}
+        <div className=" ml-24 w-[15%] flex items-center justify-end ">
+          {isAuth == false ? (
+            <UILogin />
+          ) : (
+            <MenubarMenu>
+              <MenubarTrigger>
+                <UserAvatar />
+              </MenubarTrigger>
+              <MenubarContent>
+                <Link to="/profile">
+                  <MenubarItem>
+                    <User className="mr-2 h-4 w-4" />
+                    Thông tin
+                  </MenubarItem>
+                </Link>
+                <MenubarItem onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Đăng xuất
+                </MenubarItem>
+              </MenubarContent>
+            </MenubarMenu>
+          )}
         </div>
       </Menubar>
 
@@ -127,6 +147,10 @@ export const Route = createRootRoute({
       </main>
 
       <TanStackRouterDevtools />
-    </UserContextProvider>
-  ),
+    </div>
+  );
+}
+
+export const Route = createRootRoute({
+  component: RootLayout,
 });

@@ -1,7 +1,10 @@
 // src/components/LessonList.tsx
 
-import { useQuery } from "@tanstack/react-query";
-import { lessonsInModuleService } from "@/api/lessonService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  deleteLessonService,
+  lessonsInModuleService,
+} from "@/api/lessonService";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -12,10 +15,21 @@ interface LessonListProps {
 }
 
 export function LessonList({ moduleId }: LessonListProps) {
+  const queryClient = useQueryClient();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["lessons", moduleId],
     queryFn: () => lessonsInModuleService(moduleId),
     enabled: !!moduleId,
+  });
+
+  const deleteLessonMutation = useMutation({
+    mutationFn: deleteLessonService,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["lessons", moduleId] });
+    },
+    onError: (error) => {
+      console.log("Lỗi bài học", error);
+    },
   });
 
   if (isLoading) {
@@ -48,6 +62,11 @@ export function LessonList({ moduleId }: LessonListProps) {
       </p>
     );
   }
+  const handleDelete = async (lessonId: string, name: string) => {
+    if (window.confirm(`Bạn có chắc chắn muốn xóa bài học "${name}" không?`)) {
+      deleteLessonMutation.mutate(lessonId);
+    }
+  };
 
   return (
     <div className="space-y-2 pl-6 border-l-2 ml-3">
@@ -67,6 +86,7 @@ export function LessonList({ moduleId }: LessonListProps) {
             <Button
               variant="ghost"
               size="icon"
+              onClick={() => handleDelete(lesson.id, lesson.title)}
               className="h-8 w-8 text-red-500 hover:text-red-600"
             >
               <Trash2 className="h-4 w-4" />
